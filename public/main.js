@@ -38,7 +38,7 @@ async function init_Home() {
     let new_result2 = await sendRequest('MDB', 'list/movies/2');
     retryCount = 0;
     while (retryCount < retries) {
-      if (!new_result2.finalResponse.results) {
+      if (!new_result2.finalResponse) {
         retryCount++;
         await new Promise(resolve => setTimeout(resolve, timeout));
       }
@@ -49,7 +49,7 @@ async function init_Home() {
     let upcoming_result1 = await sendRequest('MDB', 'upcoming/movies?page=1');
     retryCount = 0;
     while (retryCount < retries) {
-      if (!upcoming_result1.finalResponse.results) {
+      if (!upcoming_result1.finalResponse) {
         retryCount++;
         await new Promise(resolve => setTimeout(resolve, timeout));
       }
@@ -58,7 +58,7 @@ async function init_Home() {
     let upcoming_result2 = await sendRequest('MDB', 'upcoming/movies?page=2');
     retryCount = 0;
     while (retryCount < retries) {
-      if (!upcoming_result2.finalResponse.results) {
+      if (!upcoming_result2.finalResponse) {
         retryCount++;
         await new Promise(resolve => setTimeout(resolve, timeout));
       }
@@ -69,7 +69,7 @@ async function init_Home() {
     let toprated_result1 = await sendRequest('MDB', 'toprated/movies?page=1');
     retryCount = 0;
     while (retryCount < retries) {
-      if (!toprated_result1.finalResponse.results) {
+      if (!toprated_result1.finalResponse) {
         retryCount++;
         await new Promise(resolve => setTimeout(resolve, timeout));
       }
@@ -78,7 +78,7 @@ async function init_Home() {
     let toprated_result2 = await sendRequest('MDB', 'toprated/movies?page=2');
     retryCount = 0;
     while (retryCount < retries) {
-      if (!toprated_result2.finalResponse.results) {
+      if (!toprated_result2.finalResponse) {
         retryCount++;
         await new Promise(resolve => setTimeout(resolve, timeout));
       }
