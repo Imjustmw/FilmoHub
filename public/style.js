@@ -38,7 +38,8 @@ searchBar.addEventListener("input", async function(event) {
                         break;
                     }
                 }
-                if (result.finalReponse) {
+                console.log("Search 1:", result.finalResponse !== null);
+                if (result.finalResponse) {
                     searchArray.push(...result.finalResponse.results);
                 } else {
                     searchArray.push(...result.results);
@@ -57,9 +58,9 @@ searchBar.addEventListener("input", async function(event) {
                                 break;
                             }
                         }
-                        
+                        console.log(`Search ${i}:`, result.finalResponse !== null);
                         if (result2.finalResponse) {
-                            searchArray.push(...result2.finalReponse.results);
+                            searchArray.push(...result2.finalResponse.results);
                         } else {
                             searchArray.push(...result2.results);
                         }
