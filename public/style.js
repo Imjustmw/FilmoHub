@@ -107,11 +107,6 @@ function setVideo(movie) {
     videoFrame.innerHTML = iframe;
 }
 
-function videoEnded() {
-    console.log('Error loading video')
-}
-
-
 // Scroll Event (Left/Right)
 window.addEventListener('scroll', () => {
     if (window.scrollY > 0) {

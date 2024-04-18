@@ -115,7 +115,6 @@ async function init_Genres() {
 
 }
 
-
 function displayHome() {
   let result = document.querySelector('#home');
   
@@ -131,6 +130,21 @@ function displayHome() {
 
   result.innerHTML = html;
   setVideo(HomePage.Top.list[0]);
+
+  playTopMoviesLoop(); //set movie trailer display loop
+}
+
+function playTopMoviesLoop() {
+  let currentIndex = 0;
+  let movies = HomePage.Top.list;
+
+  function playNextMovie() {
+      setVideo(movies[currentIndex]);
+      currentIndex = (currentIndex + 1) % movies.length;
+      setTimeout(playNextMovie, 35000); // 35 seconds
+  }
+
+  playNextMovie();
 }
 
 function displaySearches(searches) {
