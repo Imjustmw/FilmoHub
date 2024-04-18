@@ -91,6 +91,7 @@ function displaySearches(searches) {
     };
     imgElement.src = movie.poster_path;
   }
-
   
 }
+
+init_Home();

@@ -74,5 +74,3 @@ function addItem(id, title, array) {
     `;
     return html;
 }
-
-await init_Home();
