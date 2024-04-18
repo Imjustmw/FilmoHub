@@ -25,7 +25,19 @@ searchBar.addEventListener("input", async function(event) {
         // Set a timer to wait for 1000 milliseconds (1 second) after the user stops typing
         searchTimer = setTimeout(async () => {
             try {
-                let result = await sendRequest('MDB', `search/movies?q=${key}&page=1`);
+                let timeout = 200;
+                let retries = 3;
+                let retryCount = 0;
+                let result;
+                while (retryCount < retries) {
+                    result = await sendRequest('MDB', `search/movies?q=${key}&page=1`);
+                    if (!result.finalResponse && !result.results) {
+                        retryCount++;
+                        await new Promise(resolve => setTimeout(resolve, timeout));
+                    } else {
+                        break;
+                    }
+                }
                 if (result.finalReponse) {
                     searchArray.push(...result.finalResponse.results);
                 } else {
@@ -34,7 +46,18 @@ searchBar.addEventListener("input", async function(event) {
                 
                 if (result.total_pages > 1) {
                     for (i = 2; i <= result.total_pages; i++) {
-                        let result2 = await sendRequest('MDB', `search/movies?q=${key}&page=${i}`);
+                        retryCount = 0;
+                        let result2;
+                        while (retryCount < retries) {
+                            result2 = await sendRequest('MDB', `search/movies?q=${key}&page=${i}`);
+                            if (!result2.finalResponse && !result2.results) {
+                                retryCount++;
+                                await new Promise(resolve => setTimeout(resolve, timeout));
+                            } else {
+                                break;
+                            }
+                        }
+                        
                         if (result2.finalResponse) {
                             searchArray.push(...result2.finalReponse.results);
                         } else {
