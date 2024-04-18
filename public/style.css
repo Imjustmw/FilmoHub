@@ -1,0 +1,478 @@
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  background-color: rgb(50, 50, 50);
+}
+
+@font-face {
+  font-family: 'Sublima';
+  src: url('./Fonts/Sublima-ExtraLight.otf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Sublima-Bold';
+  src: url('./Fonts/Sublima-ExtraBold.otf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Movie';
+  src: url('./Fonts/Moviecal.ttf') format('truetype');
+}
+
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  max-height: 5vh;
+  width: 100%;
+  max-width: 100%;
+  z-index: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Movie', sans-serif;
+  font-size: 1.75vh;
+
+  background-image: linear-gradient(to bottom, rgba(50, 50, 50, 1) 0%, rgba(50, 50, 50, 0) 100%);
+  transition: background-color 0.6s ease;
+  z-index: 5;
+}
+
+.navbar_list {
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  list-style-type: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-right: auto;
+  margin-left: 0;
+}
+
+.search {
+  max-width: 20%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 1em;
+}
+
+.search img {
+  max-height: 2vh;
+  width: auto;
+  height: 2vh;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.search img:hover {
+  transform: scale(1.1);
+}
+
+.search #searchKey {
+  opacity: 0;
+  margin-left: 1em;
+  background-color: #222;
+  border: none;
+  border-radius: 0.5em;
+  height: 50%;
+  width: 0;
+  max-width: 15vw;;
+  color: #fff;
+  transition: width 0.3s ease, opacity 0s linear 0.2s;
+}
+
+.search #searchKey:focus {
+  width: 15vw;
+  opacity: 1;
+  transition-delay: 0s;
+}
+
+#signup {
+  width: 8vh;
+  padding: 0.75vh;
+  background-color: #d11919;
+  color: #fff;
+  font-size: 1.6vh;
+  border-radius: 0.5em;
+  margin-right: 1em;
+  transition: 0.3s ease;
+  text-align: center;
+  cursor: pointer;
+}
+
+#signup:hover {
+  transform: scale(1.2);
+}
+
+.navbar_item {
+  display: flex;
+  margin-right: 1em;
+}
+
+.nav_link {
+  text-decoration: none;
+  color: #fff;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+.nav_link:not(#signup):hover{
+  color: #999;
+  transform: scale(1.1);
+}
+
+#nav_logo {
+  background-color: #A52A2A;
+  background-image: linear-gradient(to top, #A52A2A 0%, #FFD700 100%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 2vh;
+  margin-left: 1em;
+  left: 0;
+}
+
+.main {
+  position: relative;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  background-color: rgb(50, 50, 50);
+}
+
+#searches {
+ padding: 5vh 0;
+}
+
+#highlight {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 45vh;
+  max-height: 45vh;
+}
+
+#highlight .video-iframe {
+  position: relative;
+  border: none;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+#highlight .poster {
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  width: 100%;
+  height: 100%;
+  max-width: 25vh;
+  max-height: 33vh;
+  border-radius: 0.5em;
+  margin: 1em;
+  background-color: #000;
+  overflow: hidden;
+  display: inline-block;
+  cursor: pointer;
+  transition: 0.3s ease;
+  opacity: 1;
+  cursor: pointer;
+  z-index: 2;
+}
+
+#highlight .poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+#highlight::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%; /* Adjust the height of the gradient overlay as needed */
+  background-image: linear-gradient(to bottom, rgba(50, 50, 50, 0) 20%, rgba(50, 50, 50, 1) 100%);
+  z-index: 1;
+}
+
+#highlight .info {
+  position: absolute;
+  width: 45vh;
+  height: 20%;
+  bottom: 10%;
+  left: 0;
+  background-image: linear-gradient(to right, rgba(50, 50, 50, 1) 50%, rgba(50, 50, 50, 0) 100%);
+  transition: height 0.3s ease;
+  z-index: 3;
+}
+
+#highlight .info:hover {
+  height: 32%;
+}
+
+#highlight .info:hover .poster img{
+  opacity: 0.7;
+}
+
+#highlight h1 {
+  width: 100%;
+  margin-left: 1em;
+  font-size: 2.5vh;
+  color: #fff;
+  font-family: 'Sublima-Bold', sans-serif;
+  cursor: pointer;
+  z-index: 4;
+}
+
+#highlight h2 {
+  width: 100%;
+  margin-left: 2.1em;
+  font-size: 1.25vh;
+  color: #fff;
+  font-family: 'Sublima', sans-serif;
+  z-index: 4;
+}
+
+#highlight h3 {
+  width: 100%;
+  margin: 0 2em;
+  font-size: 1vh;
+  color: #fff;
+  font-family: 'Sublima', sans-serif;
+  display: none;
+  opacity: 0;
+  z-index: 3;
+}
+
+#highlight .info:hover h3 {
+  display: block;
+  opacity: 1;
+}
+
+.catalog {
+  width: 100%;
+  padding: 0;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.catalog_container {
+  white-space: nowrap;
+  margin: 0 auto;
+  padding: 2em 0;
+  display: inline-block;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  overflow-y: visible;
+}
+
+.catalog_container::-webkit-scrollbar {
+  display: none;
+}
+
+.catalog h2 {
+  color: #fff;
+  font-family: 'Sublima-Bold', sans-serif;
+  font-size: 2vh;
+  padding-left: 2em;
+}
+
+.catalog_item {
+  width: 100%;
+  height: 100%;
+  max-width: 12em;
+  max-height: 18em;
+  border-radius: 1.5em;
+  margin: 1em;
+  background-color: #000;
+  overflow: hidden;
+  display: inline-block;
+  cursor: pointer;
+  transition: 0.4s ease;
+  opacity: 1;
+}
+
+.catalog_container:hover .catalog_item:hover {
+  transform: scale(1.3);
+}
+
+.catalog_item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.catalog_item h1,
+.catalog_item h2 {
+  margin-left: 0.5em;
+  top: 0;
+  left: 0;
+  font-size: 1.25vh;
+  color: #fff;
+  z-index: 1;
+}
+
+.catalog .prev-button,
+.catalog .next-button {
+  border: none;
+  background: none;
+  position: absolute;
+  height: 65%;
+  width: 6vh;
+  z-index: 3;
+  top: 23.5%;
+  cursor: pointer;
+  text-align: center;
+  font-size: 3vh;
+  color: white;
+  font-family: 'Sublima-Bold', sans-serif;
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
+}
+
+.catalog .prev-button:hover,
+.catalog .next-button:hover {
+  opacity: 1;
+}
+
+.catalog .prev-button {
+  background-image: linear-gradient(to left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+  left: 0;
+}
+
+.catalog .next-button {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+  right: 0;
+}
+
+
+/* details */
+.backdrop {
+  width: 100%;
+  height: 50vh;
+}
+
+/* sign in */
+.poster_backdrop {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  filter: blur(5px);
+  z-index: 0;
+  object-fit: cover;
+  animation: slideAnimation 60s linear infinite; /* Adjust the duration (60s) as needed */
+}
+
+@keyframes slideAnimation {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.login-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+  z-index: 1;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #222;
+  width: 30vw;
+  height: 50vh;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  z-index: 1;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  line-height: 1.5;
+  z-index: 1;
+  background-color: #444;
+}
+
+.login-form button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.login-form button:hover {
+  background-color: #3e8e41;
+}
+
+.login-form a {
+  display: block;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #4CAF50;
+  text-decoration: none;
+  z-index: 1;
+}
+
+.login-form a:hover {
+  text-decoration: underline;
+}
