@@ -301,7 +301,7 @@ function playTopMoviesLoop() {
   // Function to play the next movie trailer
   function playNextMovie() {
       // Set the video for the current movie
-      if (document.querySelector('#home') === null) {
+      if (document.querySelector('#home') !== null) {
         setVideo(movies[currentIndex]);
 
         // Move to the next movie index
