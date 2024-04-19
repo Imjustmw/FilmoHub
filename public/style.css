@@ -159,8 +159,17 @@ body {
   background-color: rgb(50, 50, 50);
 }
 
+#page {
+  z-index: 0;
+}
+
+#genres {
+  top: 5vh;
+}
+
 #searches {
  padding: 5vh 0;
+ z-index: 2;
 }
 
 #highlight {
