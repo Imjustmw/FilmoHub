@@ -213,10 +213,36 @@ async function init_Genres() {
   }
 }
 
+async function initMyList(movieIds) {
+  try {
+    let timeout = 200;
+    let retries = 3;
+    HomePage.MyList.list = [];
+    for (id of movieIds) {
+      let movie;
+      let retryCount = 0;
 
-function displayHome() {
+      while (retryCount < retries) {
+        movie = await sendRequest('MDB', `description/movies?movieId=${id}`);
+        if (!movie.result) {
+          retryCount++;
+          await new Promise(resolve => setTimeout(resolve, timeout));
+        } else {
+            break;
+        }
+      }
+      HomePage.MyList.list.push(movie.result);
+    }
+  } catch (e) {
+    console.error("Failed To get MyList:", e);
+  }
+ 
+}
+
+async function displayHome() {
   let result = document.querySelector('#home');
-  
+  let movieIds = await getMyList();
+  await initMyList(movieIds);
   let html = `
     <container id="highlight"></container>
 

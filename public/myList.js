@@ -40,7 +40,6 @@ async function removeFromMyList(movieId) {
     }
 }
 
-
 async function isInMyList(movieId) {
     const user = auth.currentUser;
     if (user) {
@@ -52,5 +51,26 @@ async function isInMyList(movieId) {
     }
 }
 
+async function getMyList() {
+    try {
+        // Check if the user is logged in
+        const user = auth.currentUser;
+        if (user) {
+            // Remove the movie ID from the list
+            let movies = await getSavedMovieIds(auth);
+            console.log("Successfully got saved Movies");
+            return movies;
+        } else {
+            // Handle the case where the user is not logged in
+            console.error("User is not logged in");
+            return [];
+        }   
+    } catch (error) {
+        console.error("Error getting saved Movies:", error);
+        return [];
+    }
+}
+
 window.addToMyList = addToMyList;
 window.isInMyList = isInMyList;
+window.getMyList = getMyList;
