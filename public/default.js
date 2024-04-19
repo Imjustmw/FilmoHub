@@ -3,25 +3,48 @@ const servers = {
 }
 const API_KEY = '90b7f788f8mshcbca84d4476a687p1c680djsn296b4a6b8a8d';
 
-function executeScripts(){
-    let script = document.querySelector('script').innerText;
-    try{
-      new Function(script)();
-    }catch(e){
-      console.error(e);
-    }   
-  }
+function executeScripts(Page, args){
+    if (Page === "Genres") {
+        displayGenres();
+    } else if (Page === "Home") {
+        displayHome();
+    } else if (Page === "Movie") {
+        displayMovieDetails(args);
+    }
+}
 
-async function navigate(title, url){
+async function navigate(title, url, args){
     document.title = title;
-    let content = document.querySelector('#main');
+    let content = document.querySelector('#page');
     if(url === null){
         content.innerHTML = "";
     }else{
-        let response = await fetch(url);//fetch another page eg battery.html
+        history.pushState({title:title, url: url, args: args}, null, url);
+        let response = await fetch(url);
         content.innerHTML = await response.text();
-        executeScripts();
+        clearSearch();
+        executeScripts(title, args);
     }
+}
+
+function handleBack(event, args){
+    //if no links were clicked pushState() is never called
+    //as pushState() is never called there will be no data in event.state
+    if(event.state == null){
+      navigate('FilmoHub', null);
+    }else{
+      //links were clicked before so we can get the text and url passed from handleClick()
+      navigate(event.state.title, event.state.url, event.state.args);  
+    }
+}
+window.addEventListener('popstate', handleBack);
+
+function clearSearch(){
+    const searches = document.querySelector('#searches');
+    document.querySelector('#searchKey').value = "";
+    document.querySelector('#page').style.display = 'block';
+    searches.innerHTML = "";
+    searches.style.display = 'none';
 }
 
 async function sendRequest(Server, type) {
@@ -40,37 +63,4 @@ async function sendRequest(Server, type) {
     } catch (e) {
         console.error(e);
     }
-}
-
-function getTrailer(trailers) {
-    const reversed = [...trailers].reverse();
-    for (let trailer of reversed) {
-        if (trailer.type === "Trailer")
-            return trailer.key;
-    }
-}
-
-function addItem(id, title, array) {
-    // list of movies
-    let body = '';
-    for (let movie of array) {
-        body += `
-        <div class="catalog_item">
-
-            <img src='${movie.poster_path}'/>
-           
-        </div>
-        `;
-    }
-
-    // catalog container
-    let html = `
-        <section class="catalog">
-            <h2>${title}</h2>
-            <div class="catalog_container" id="${id}">${body}</div>
-            <button class="prev-button" onclick="scrollPrev('#${id}')"><</button>
-            <button class="next-button" onclick="scrollNext('#${id}')">></button>
-        </section>
-    `;
-    return html;
 }

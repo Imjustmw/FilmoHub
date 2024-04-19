@@ -1,6 +1,6 @@
-const navbar = document.querySelector('.navbar');
+const navbar = document.querySelector('#navbar');
 const searchBar = document.querySelector('#searchKey');
-const home = document.querySelector('#home');
+const home = document.querySelector('#page');
 const searches = document.querySelector('#searches');
 let searchArray = [];
 
@@ -14,6 +14,7 @@ searchBar.addEventListener("input", async function(event) {
     const key = event.target.value.trim();
     clearTimeout(searchTimer); // Clear any existing timer
     searchArray = [];
+    searches.innerHTML = "";
     if (key === "") { // Blank search
         home.style.display = 'block';
         searches.innerHTML = "";
@@ -26,7 +27,7 @@ searchBar.addEventListener("input", async function(event) {
         searchTimer = setTimeout(async () => {
             try {
                 let timeout = 200;
-                let retries = 3;
+                let retries = 5;
                 let retryCount = 0;
                 let result;
                 while (retryCount < retries) {
@@ -38,15 +39,18 @@ searchBar.addEventListener("input", async function(event) {
                         break;
                     }
                 }
-                console.log("Search 1:", result.finalResponse !== null);
+                console.log("Search Movie:", result.finalReponse !== null);
+                let total_pages = 1;
                 if (result.finalResponse) {
                     searchArray.push(...result.finalResponse.results);
+                    total_pages = result.finalResponse.total_Pages;
                 } else {
                     searchArray.push(...result.results);
+                    total_pages = result.total_Pages;
                 }
                 
-                if (result.total_pages > 1) {
-                    for (i = 2; i <= result.total_pages; i++) {
+                if (total_pages > 1) {
+                    for (i = 2; i <= total_pages; i++) {
                         retryCount = 0;
                         let result2;
                         while (retryCount < retries) {
@@ -58,7 +62,7 @@ searchBar.addEventListener("input", async function(event) {
                                 break;
                             }
                         }
-                        console.log(`Search ${i}:`, result.finalResponse !== null);
+                        console.log("Search Movie:", result2.finalReponse !== null);
                         if (result2.finalResponse) {
                             searchArray.push(...result2.finalResponse.results);
                         } else {
@@ -96,15 +100,49 @@ function setVideo(movie) {
 
     iframe = `
         <iframe class="video-iframe" src="${src}" allow="autoplay"></iframe>
-        <div class="poster"><img src="${movie.poster_path}"></div>
+        <div class="poster" onclick="navigate('Movie', './details.html', ${movie.movieId})"><img src="${movie.poster_path}"></div>
         <div class="info">
-            <h1>${movie.title}</h1>
+            <h1 onclick="navigate('Movie', './details.html', ${movie.movieId})">${movie.title}</h1>
             <h2>${genres}</h2>
             <h3>${movie.overview}</h3>
         </div>
     `;
 
     videoFrame.innerHTML = iframe;
+}
+
+// movie list and preview
+function getTrailer(trailers) {
+    const reversed = [...trailers].reverse();
+    for (let trailer of reversed) {
+        if (trailer.type === "Trailer")
+            return trailer.key;
+    }
+}
+
+function addItem(id, title, array) {
+    // list of movies
+    let body = '';
+    for (let movie of array) {
+        body += `
+        <div class="catalog_item" onclick="navigate('Movie', './details.html', ${movie.movieId})">
+
+            <img src='${movie.poster_path}'/>
+           
+        </div>
+        `;
+    }
+
+    // catalog container
+    let html = `
+        <section class="catalog">
+            <h2>${title}</h2>
+            <div class="catalog_container" id="${id}">${body}</div>
+            <button class="prev-button" onclick="scrollPrev('#${id}')"><</button>
+            <button class="next-button" onclick="scrollNext('#${id}')">></button>
+        </section>
+    `;
+    return html;
 }
 
 // Scroll Event (Left/Right)
