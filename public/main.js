@@ -276,8 +276,12 @@ function displaySearches(searches) {
     let imgElement = document.createElement('img');
     imgElement.onload = function() { // some images dont load so this ignores those movies
       html += `
-        <div class="catalog_item" onclick="navigate('Movie', './details.html', ${movie.movieId})">
-        <img src='${movie.poster_path}'/>
+        <div class="catalog_item">
+            <img src='${movie.poster_path}' onclick="navigate('Movie', './details.html', ${movie.movieId})">
+            <div class="details">
+                <h1>${movie.title}</h1>
+                <div class="stars">${getStars(movie.vote_average)}</div>
+            </div>
         </div>
       `;
       result.innerHTML = html;
@@ -320,6 +324,7 @@ async function displayMovieDetails(movieId) {
             genres += ",  ";
     }
 
+    let inList = await isInMyList(fullMovie.result.movieId);
     // Setting the Movie Data HTML
     html = `
       <div class="m_details_background_img">
@@ -337,7 +342,7 @@ async function displayMovieDetails(movieId) {
 
             <div class="m_info">
               <p>Release Date: ${fullMovie.result.release_date}</p>
-              <p>Rating: ${fullMovie.result.vote_average}/10</p> <i class="fa-brands fa-imdb"></i>
+              <p>Rating: ${fullMovie.result.vote_average} / 10</p><i class="fa-brands fa-imdb"></i>
               <p>Genres: ${genres}</p>
             </div> 
           </div>
@@ -363,7 +368,7 @@ async function displayMovieDetails(movieId) {
         <p>${fullMovie.result.overview}</p>
 
         <div class="m_add_to_list">
-            <button class="add_to_list_btn">Add to List</button>
+            <button id="addToList" class="add_to_list_btn" onclick="addToMyList(${fullMovie.result.movieId})">${inList?"Remove From List":"Add to List"}</button>
         </div>
       </div>
     `;
@@ -384,7 +389,6 @@ async function init() {
   await init_Home();
   await init_Genres();
 }
-
 
 document.addEventListener('DOMContentLoaded', function() {
   init();

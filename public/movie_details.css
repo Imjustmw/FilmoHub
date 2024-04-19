@@ -73,6 +73,7 @@
 
 .m_info{
   font-family: 'Sublima', sans-serif;
+  font-weight: bold;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -87,6 +88,7 @@
 
 .fa-imdb {
   font-size: 30px;
+  margin-left: 0.5em;
 }
 
 
@@ -152,21 +154,22 @@
   z-index: 1; 
 }
 
-.add_to_list_btn{
+.add_to_list_btn {
   margin: 50px auto 50px auto;
   width: 180px;
   height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #131313;
+  background-color: #a77943;
   border-radius: 30px;
   font-family: 'Sublima', sans-serif;
   font-size: 0.9rem;
   color: #ffffff;
   letter-spacing: 1px;
-  transition: all 0.8s;
+  transition: 0.3s ease;
 }
+
 .add_to_list_btn:hover{
-  transition: all 0.8s;
+  transform: scale(1.1);
 }

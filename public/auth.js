@@ -1,17 +1,17 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
 import { 
   getAuth, 
-  signOut, 
-  signInAnonymously, 
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
+  sendPasswordResetEmail,
   setPersistence, 
   browserLocalPersistence, 
   onAuthStateChanged 
 } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 import firebaseConfig from "./firebaseConfig.js";
 
-
 const app = initializeApp(firebaseConfig);
-
 const auth = getAuth();
 
 function setAuthListeners(onLogin, onLogout){
@@ -24,12 +24,25 @@ function setAuthListeners(onLogin, onLogout){
   });
 }
 
-async function signIn(){
-  try{
+async function signIn(email, password) {
+  try {
     await setPersistence(auth, browserLocalPersistence);
-    const user = await signInAnonymously(auth);
-  }catch(e){
-    console.error(e);
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    return userCredential.user;
+  } catch (error) {
+    console.error('Error signing in:', error.message);
+    throw error;
+  }
+}
+
+async function signUp(email, password) {
+  try {
+    await setPersistence(auth, browserLocalPersistence);
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    return userCredential.user;
+  } catch (error) {
+    console.error('Error signing up:', error.message);
+    throw error;
   }
 }
 
@@ -38,7 +51,18 @@ async function logout() {
     await signOut(auth);
   } catch (error) {
     console.error('Error signing out', error);
+    throw error;
   }
 }
 
-export {auth, setAuthListeners, signIn, logout};
+async function sendResetPasswordEmail(email) {
+  try {
+    await sendPasswordResetEmail(auth, email);
+    console.log('Password reset email sent successfully');
+  } catch (error) {
+    console.error('Error sending password reset email:', error.message);
+    throw error;
+  }
+}
+
+export { auth, setAuthListeners, signIn, signUp, logout, sendResetPasswordEmail };

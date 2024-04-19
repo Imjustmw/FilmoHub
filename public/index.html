@@ -5,7 +5,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>FilmoHub</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link href="signup.css" rel="stylesheet" type="text/css" />
+  <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.0/css/boxicons.min.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/56dbef37d7.js" crossorigin="anonymous"></script>
 
 </head>
@@ -13,42 +14,66 @@
 <body>
 
   <body>
-
-    <nav class="navbar">
-      <h1 id="nav_logo"><a href="./filmohub.html">FilmoHub</a></h1>
-    </nav>
-  
-    <div class="main" id="home">
+    <section class="main">
       <img class="poster_backdrop" src="./Images/signin_backdrop.png">
       <img class="poster_backdrop" src="./Images/signin_backdrop.png" style="left:99%;">
 
-      <div class="login-screen">
-        <div class="login-form">
-          <label for="email">Email</label>
-          <input type="text" id="email" name="email">
-    
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password">
-    
-          <div class="anonymous-signin">
-            <input type="checkbox" id="anonymous" name="anonymous">
-            <label for="anonymous">Sign in anonymously</label>
+      <section class="container forms">
+          <div class="form login">
+              <div class="form-content">
+                  <header>Login</header>
+                  <h2 id="error_login"></h2>
+                  <form action="#">
+                      <div class="field input-field">
+                          <input type="email" placeholder="Email" class="input">
+                      </div>
+                      <div class="field input-field">
+                          <input type="password" placeholder="Password" class="password">
+                          <i class='bx bx-hide eye-icon'></i>
+                      </div>
+                      <div class="form-link">
+                          <a href="#" class="forgot-pass">Forgot password?</a>
+                      </div>
+                      <div class="field button-field">
+                          <button>Login</button>
+                      </div>
+                  </form>
+                  <div class="form-link">
+                      <span>Don't have an account? <a href="#" class="link signup-link">Signup</a></span>
+                  </div>
+              </div>
           </div>
-    
-          <button type="submit">Log In</button>
-    
-          <div class="links">
-            <a href="#">Forgot password?</a>
-            <a href="#">New Customer? Create an account</a>
+          <!-- Signup Form -->
+          <div class="form signup">
+              <div class="form-content">
+                  <header>Signup</header>
+                  <h2 id="error_signup"></h2>
+                  <form action="#">
+                      <div class="field input-field">
+                          <input type="email" placeholder="Email" class="input">
+                      </div>
+                      <div class="field input-field">
+                          <input type="password" placeholder="Create password" class="password">
+                      </div>
+                      <div class="field input-field">
+                          <input type="password" placeholder="Confirm password" class="password">
+                          <i class='bx bx-hide eye-icon'></i>
+                      </div>
+                      <div class="field button-field">
+                          <button>Signup</button>
+                      </div>
+                  </form>
+                  <div class="form-link">
+                      <span>Already have an account? <a href="#" class="link login-link">Login</a></span>
+                  </div>
+              </div>
           </div>
-        </div>
-      </div>
-      
-    </div>
-  
-    <!--Javascript-->
-    <script src="style.js"></script>
-    <script src="default.js"></script>
+      </section>
+  </section> 
+
+  <!--Javascript-->
+  <script src="auth.js" type="module"></script>
+  <script src="signup.js" type="module"></script>
 
 </body>
 

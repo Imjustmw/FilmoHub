@@ -6,13 +6,13 @@
   <meta name="viewport" content="width=device-width">
   <title>Home - FilmoHub</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
-
+  <script src="https://kit.fontawesome.com/56dbef37d7.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
 
   <nav class="navbar" id ="navbar">
-      <h1 onclick="navigate('Home', './home.html')" id="nav_logo">FilmoHub</h1>
+      <h1 onclick="navigate('Home', './home.html')" id="nav_logo"><i class="fa-solid fa-film"></i>FilmoHub</h1>
 
       <ul class="navbar_list">
         <li class="navbar_item"><a onclick="navigate('Home', './home.html')" class="nav_link">Home</a></li>
@@ -25,7 +25,19 @@
         <input type="search" id="searchKey" placeholder="Search...">
       </div>
 
-      <div id="signup"><a href="./index.html" class="nav_link">Sign Up</a></div>
+      <div id="user">
+        <img src="https://www.w3schools.com/howto/img_avatar.png" alt="User" class="avatar" id = "avatar">
+        <div class="dropdown">
+            <button id="avatar-btn" class="dropdown-toggle">
+                <i class="bx bx-dots-vertical-rounded"></i>
+            </button>
+            <div class="dropdown-menu" id="dropdown-menu">
+              <span id="user-email" class="dropdown-item">User Email</span>
+              <a href="#" class="dropdown-item logout">Logout</a>
+            </div>
+        </div>
+      </div>
+
   </nav>
 
   <div class="main" id="page"></div>
@@ -36,6 +48,9 @@
   <script src="default.js"></script>
   <script src="main.js"></script>
   <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="auth.js" type="module"></script>
+  <script src="logout.js" type="module"></script>
+  <script src="myList.js" type="module"></script>
   
 </body>
 

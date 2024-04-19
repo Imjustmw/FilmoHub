@@ -120,15 +120,31 @@ function getTrailer(trailers) {
     }
 }
 
+function getStars(voteAverage) {
+    const maxStars = 5;
+    const filledStars = Math.round((voteAverage / 10) * maxStars);
+    let starsHTML = '';
+    for (let i = 0; i < maxStars; i++) {
+        if (i < filledStars) {
+            starsHTML += '<i class="fa-solid fa-star"></i>'; // Assuming you have a star icon
+        } else {
+            starsHTML += '<i class="far fa-star"></i>'; // Assuming you have an outline star icon
+        }
+    }
+    return starsHTML;
+}
+
 function addItem(id, title, array) {
     // list of movies
     let body = '';
     for (let movie of array) {
         body += `
-        <div class="catalog_item" onclick="navigate('Movie', './details.html', ${movie.movieId})">
-
-            <img src='${movie.poster_path}'/>
-           
+        <div class="catalog_item">
+            <img src='${movie.poster_path}' onclick="navigate('Movie', './details.html', ${movie.movieId})">
+            <div class="details">
+                <h1>${movie.title}</h1>
+                <div class="stars">${getStars(movie.vote_average)}</div>
+            </div>
         </div>
         `;
     }
