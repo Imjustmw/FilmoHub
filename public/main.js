@@ -389,5 +389,3 @@ async function init() {
 document.addEventListener('DOMContentLoaded', function() {
   init();
 });
-
-console.log("Initiated");
