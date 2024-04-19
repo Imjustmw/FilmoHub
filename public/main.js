@@ -236,7 +236,28 @@ async function initMyList(movieIds) {
   } catch (e) {
     console.error("Failed To get MyList:", e);
   }
- 
+}
+
+async function displayMyList() {
+  let result = document.querySelector('#MyList');
+  let movieIds = await getMyList();
+  await initMyList(movieIds);
+
+  let html = `
+    <h1>My List</h1>
+  `;
+  for (let movie of HomePage.MyList.list) {
+    html += `
+      <div class="catalog_item">
+          <img src='${movie.poster_path}' onclick="navigate('Movie', './details.html', ${movie.movieId})">
+          <div class="details">
+              <h1>${movie.title}</h1>
+              <div class="stars">${getStars(movie.vote_average)}</div>
+          </div>
+      </div>
+    `;
+    result.innerHTML = html;
+  }
 }
 
 async function displayHome() {

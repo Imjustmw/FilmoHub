@@ -159,6 +159,26 @@ body {
  z-index: 2;
 }
 
+#MyList {
+  top: 5vh;
+}
+
+#MyList h1 {
+  color: white;
+  font-family: 'Sublima-Bold', sans-serif;
+  font-size: 1.75vw;
+  margin: 1em 2em;
+}
+
+#MyList .catalog_item h1{
+  margin-left: 0.75em;
+  margin-bottom: 0.1em;
+  font-family: 'Sublima-Bold', sans-serif;
+  font-size: 1.25vh;
+  color: #fff;
+  z-index: 3;
+}
+
 #highlight {
   display: flex;
   position: relative;

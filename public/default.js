@@ -10,6 +10,8 @@ function executeScripts(Page, args){
         displayHome();
     } else if (Page === "Movie") {
         displayMovieDetails(args);
+    } else if (Page === "My List") {
+        displayMyList();
     }
 }
 
