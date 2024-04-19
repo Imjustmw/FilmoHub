@@ -137,10 +137,12 @@ function getStars(voteAverage) {
 function addItem(id, title, array) {
     // list of movies
     let body = '';
+
     for (let movie of array) {
+        const movieId = movie.movieId || movie.id;
         body += `
         <div class="catalog_item">
-            <img src='${movie.poster_path}' onclick="navigate('Movie', './details.html', ${movie.movieId})">
+            <img src='${movie.poster_path}' onclick="navigate('Movie', './details.html', ${movieId})">
             <div class="details">
                 <h1>${movie.title}</h1>
                 <div class="stars">${getStars(movie.vote_average)}</div>
@@ -164,9 +166,9 @@ function addItem(id, title, array) {
 // Scroll Event (Left/Right)
 window.addEventListener('scroll', () => {
     if (window.scrollY > 0) {
-        navbar.style.backgroundColor = 'rgba(50, 50, 50, 1)';
+        navbar.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
     } else {
-        navbar.style.backgroundColor = 'rgba(50, 50, 50, 0)';
+        navbar.style.backgroundColor = 'transparent';
     }
 });
 

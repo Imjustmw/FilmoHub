@@ -337,6 +337,34 @@ function displaySearches(searches) {
   }
 }
 
+async function getRelatedMovies(movieId) {
+  const timeout = 200;
+  const retries = 3;
+  let retryCount = 0;
+  
+  while (retryCount < retries) {
+      try {
+          const movie = await sendRequest('MDB', `related/movies?movieId=${movieId}&page=1`);
+          console.log("Related:", movie!==null);
+          if (movie.finalResponse) {
+            return movie.finalResponse.results;
+          } else if (movie.results) {
+            return movie.results;
+          }else {
+            retryCount++;
+            await new Promise(resolve => setTimeout(resolve, timeout));
+          }
+      } catch (error) {
+          console.error("Error Fetching Related Movies:", error);
+          retryCount++;
+          await new Promise(resolve => setTimeout(resolve, timeout));
+      }
+  }
+  // Return an empty array if retries are exhausted without success
+  return [];
+}
+
+
 async function displayMovieDetails(movieId) {
   let result = document.querySelector('#details');
   let html = '';
@@ -347,6 +375,9 @@ async function displayMovieDetails(movieId) {
     let retries = 3;
     let retryCount = 0;
     let fullMovie;
+    let related;
+    related = await getRelatedMovies(movieId);
+    
     while (retryCount < retries) {
       fullMovie = await sendRequest('MDB', `description/movies?movieId=${movieId}`);
       if (!fullMovie.result) {
@@ -419,6 +450,9 @@ async function displayMovieDetails(movieId) {
         </div>
       </div>
     `;
+    if (related.length > 0) {
+      html += addItem("Related", "Related Movies...", related);
+    }
     document.title = fullMovie.result.title;
   } catch (e) {
     console.error("Failed to get Movie Details: ", e);

@@ -5,7 +5,7 @@ body {
   width: 100%;
   height: auto;
   max-width: 100%;
-  background-color: rgb(50, 50, 50);
+  background-color:  rgb(8,8,8); /*rgb(50, 50, 50);*/
 }
 
 @font-face {
@@ -40,7 +40,7 @@ body {
   font-family: 'Movie', sans-serif;
   font-size: 1.75vh;
 
-  background-image: linear-gradient(to bottom, rgba(50, 50, 50, 1) 0%, rgba(50, 50, 50, 0) 100%);
+  background-image: #131313; /*linear-gradient(to bottom, rgba(50, 50, 50, 1) 0%, rgba(50, 50, 50, 0) 100%);*/
   transition: background-color 0.6s ease;
   z-index: 5;
 }
@@ -143,7 +143,7 @@ body {
   width: 100%;
   height: auto;
   max-width: 100%;
-  background-color: rgb(50, 50, 50);
+  background-color: rgb(8,8,8); /*rgb(50, 50, 50);*/
 }
 
 #page {
@@ -232,7 +232,7 @@ body {
   left: 0;
   width: 100%;
   height: 50%; /* Adjust the height of the gradient overlay as needed */
-  background-image: linear-gradient(to bottom, rgba(50, 50, 50, 0) 20%, rgba(50, 50, 50, 1) 100%);
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 20%, rgba(8, 8, 8, 1) 100%);
   z-index: 1;
 }
 
@@ -242,7 +242,7 @@ body {
   height: 20%;
   bottom: 10%;
   left: 0;
-  background-image: linear-gradient(to right, rgba(50, 50, 50, 1) 50%, rgba(50, 50, 50, 0) 100%);
+  background-image: linear-gradient(to right, rgba(8, 8, 8, 1) 50%, rgba(50, 50, 50, 0) 100%);
   transition: height 0.3s ease;
   z-index: 3;
 }
@@ -258,7 +258,7 @@ body {
 #highlight h1 {
   width: 100%;
   margin-left: 1em;
-  font-size: 2.5vh;
+  font-size: 3vh;
   color: #fff;
   font-family: 'Sublima-Bold', sans-serif;
   cursor: pointer;
@@ -268,7 +268,7 @@ body {
 #highlight h2 {
   width: 100%;
   margin-left: 2.1em;
-  font-size: 1.25vh;
+  font-size: 2.1vh;
   color: #fff;
   font-family: 'Sublima', sans-serif;
   z-index: 4;
@@ -277,7 +277,7 @@ body {
 #highlight h3 {
   width: 100%;
   margin: 0 2em;
-  font-size: 1vh;
+  font-size: 1.8vh;
   color: #fff;
   font-family: 'Sublima', sans-serif;
   display: none;
@@ -315,7 +315,8 @@ body {
 .catalog h2 {
   color: #fff;
   font-family: 'Sublima-Bold', sans-serif;
-  font-size: 2vh;
+  margin-top: 3.5rem;
+  font-size: 3vh;
   padding-left: 2em;
 }
 

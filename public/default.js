@@ -9,6 +9,7 @@ function executeScripts(Page, args){
     } else if (Page === "Home") {
         displayHome();
     } else if (Page === "Movie") {
+        console.log(args)
         displayMovieDetails(args);
     } else if (Page === "My List") {
         displayMyList();
@@ -16,11 +17,11 @@ function executeScripts(Page, args){
 }
 
 async function navigate(title, url, args){
-    document.title = title;
     let content = document.querySelector('#page');
     if(url === null){
         content.innerHTML = "";
     }else{
+        document.title = title;
         history.pushState({title:title, url: url, args: args}, null, url);
         let response = await fetch(url);
         content.innerHTML = await response.text();
