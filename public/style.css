@@ -572,9 +572,8 @@ body {
 
 .dropdown-menu {
   display: none;
-  background-color: #131313;
+  background-color: #2a2a2a;
   border-color: #f0f0f0;
-  border-radius: 6%;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   list-style: none;
@@ -585,6 +584,11 @@ body {
   display: block;
 }
 
+.dropdown-item.logout:hover {
+  background-color: #555;
+}
+
+/* General styling for all dropdown items */
 .dropdown-item {
   position: relative;
   font-family: 'Sublima-Bold', sans-serif;
@@ -596,8 +600,4 @@ body {
   justify-content: center;
   align-items: center;
   white-space: nowrap;
-}
-
-.dropdown-item:hover {
-  background-color: #555;
 }

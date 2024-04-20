@@ -10,7 +10,7 @@ function searchClick() {
 }
 
 let searchTimer; // Variable to store the timer ID
-searchBar.addEventListener("input", async function(event) {
+searchBar.addEventListener("input", debounce(async function(event) {
     const key = event.target.value.trim();
     clearTimeout(searchTimer); // Clear any existing timer
     searchArray = [];
@@ -22,61 +22,59 @@ searchBar.addEventListener("input", async function(event) {
     } else { // Entered actual search
         home.style.display = 'none';
         searches.style.display = 'block';
-        
-        // Set a timer to wait for 1000 milliseconds (1 second) after the user stops typing
-        searchTimer = setTimeout(async () => {
-            try {
-                let timeout = 200;
-                let retries = 5;
-                let retryCount = 0;
-                let result;
-                while (retryCount < retries) {
-                    result = await sendRequest('MDB', `search/movies?q=${key}&page=1`);
-                    if (!result.finalResponse && !result.results) {
-                        retryCount++;
-                        await new Promise(resolve => setTimeout(resolve, timeout));
-                    } else {
-                        break;
-                    }
-                }
-                console.log("Search Movie:", result.finalReponse !== null);
-                let total_pages = 1;
-                if (result.finalResponse) {
-                    searchArray.push(...result.finalResponse.results);
-                    total_pages = result.finalResponse.total_Pages;
-                } else {
-                    searchArray.push(...result.results);
-                    total_pages = result.total_Pages;
-                }
-                
+
+        try {
+            const result = await searchMovies(key);
+            console.log("Search Movie:", result !== null);
+            if (result) {
+                searchArray.push(...result.results);
+                const total_pages = result.total_pages;
+
                 if (total_pages > 1) {
-                    for (i = 2; i <= total_pages; i++) {
-                        retryCount = 0;
-                        let result2;
-                        while (retryCount < retries) {
-                            result2 = await sendRequest('MDB', `search/movies?q=${key}&page=${i}`);
-                            if (!result2.finalResponse && !result2.results) {
-                                retryCount++;
-                                await new Promise(resolve => setTimeout(resolve, timeout));
-                            } else {
-                                break;
-                            }
-                        }
-                        console.log("Search Movie:", result2.finalReponse !== null);
-                        if (result2.finalResponse) {
-                            searchArray.push(...result2.finalResponse.results);
-                        } else {
+                    for (let i = 2; i <= total_pages; i++) {
+                        const result2 = await searchMovies(key, i);
+                        console.log("Search Movie:", result2 !== null);
+                        if (result2) {
                             searchArray.push(...result2.results);
                         }
                     }
                 }
-            } catch (e) {
-                console.error("Error Searching Key:", key, e);
             }
-            displaySearches(searchArray);
-        }, 1500);
+        } catch (e) {
+            console.error("Error Searching Key:", key, e);
+        }
+        displaySearches(searchArray);
     }
-});
+}, 1500));
+
+
+async function searchMovies(key, page = 1) {
+    const retries = 5;
+    let retryCount = 0;
+    let result;
+    while (retryCount < retries) {
+        result = await sendRequest('MDB', `search/movies?q=${key}&page=${page}`);
+        if (result.finalResponse || result.results) {
+            break;
+        }
+        retryCount++;
+        await delay(200);
+    }
+    return result.finalResponse || result.results;
+}
+
+function debounce(func, delay) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 
 // Video Settings
 function setVideo(movie) {
