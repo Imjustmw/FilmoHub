@@ -1,12 +1,11 @@
 const firebaseConfig = {
-  apiKey: "AIzaSyAuW12I0FdMKqmRkRe0MvOp47Qk-8wK9kk",
-  authDomain: "filmohub-b4c76.firebaseapp.com",
-  projectId: "filmohub-b4c76",
-  storageBucket: "filmohub-b4c76.appspot.com",
-  messagingSenderId: "342846208591",
-  appId: "1:342846208591:web:8aa23d799d5d69086e483a",
-  measurementId: "G-5N7MPPMLT2"
+  apiKey: "AIzaSyBfKms9XXjnR-rOsuKeLZN7oeaxjMnR2JM",
+  authDomain: "for-mum-eee9b.firebaseapp.com",
+  projectId: "for-mum-eee9b",
+  storageBucket: "for-mum-eee9b.appspot.com",
+  messagingSenderId: "490138470166",
+  appId: "1:490138470166:web:cde6e74d44ff8b2775f237",
+  measurementId: "G-0FJBE67BYF"
 };
 
-
-  export default firebaseConfig;
+export default firebaseConfig;
